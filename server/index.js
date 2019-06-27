@@ -28,4 +28,40 @@ pgClient.on('error', () => console.log('Lost PG connection'));
 pgClient.query('CREATE TABLE IF NOT EXISTS values (number INT)')
   .catch(err => console.log(err));
 
+// Redis Client Setup
+const redis = require('redis');
+const redisClient = redis.createClient({
+  host: keys.redisHost,
+  port:keys.redisPort,
+  retry_strategy: () => 1000
+})
 
+// according to redis documentation, if you are making a redisClient that's listening/subscribing or publishing you need to make a duplicate.
+const redisPublisher = redisClient.duplicate();
+
+// Express route handlers
+app.get('/', (req, res) => {
+  res.send("Hi");
+})
+
+// this is going to be used to retrieve all the information that has been entered
+// this uses asysnc function
+app.get('/values/all', async (req, res) => {
+  const values = await pgClient.query('SELECT * from values');
+  res.send(values.rows); // values.rows gives you the actual data, we don't need other metadata
+});
+
+app.get('/values/current', async (req, res) => {
+  redisClient.hgetall('values', (err, values) => {
+    res.send(values);
+  });
+});
+
+// post request from react app, when it submits a value
+app.post('/values', async (req, res) => {
+  const index = req.body.index;
+  
+  if(parseInt(index) > 40) {
+    return res.status(422).send("Index too high!");
+  };
+});
