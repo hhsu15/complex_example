@@ -51,6 +51,7 @@ app.get('/values/all', async (req, res) => {
   res.send(values.rows); // values.rows gives you the actual data, we don't need other metadata
 });
 
+// get hash value
 app.get('/values/current', async (req, res) => {
   redisClient.hgetall('values', (err, values) => {
     res.send(values);
@@ -64,4 +65,17 @@ app.post('/values', async (req, res) => {
   if(parseInt(index) > 40) {
     return res.status(422).send("Index too high!");
   };
+  
+  // put the index to redis store. Initially it will say 'nothing yet' but will then relaced with the actual value. 'values' is an event
+  redisClient.hset('values', index, 'Nothing yet!'); //set index with the value of "nothing yet"
+
+  // 'insert' is an event.
+  redisPublisher.publish('insert', index); //message that gets sent to the worker process
+  // then insert into pg db
+  pgClient.query('INSERT INTO values(number) VALUES($1)', [index]);
+  res.send({ working: true });
+});
+
+app.listen(5000, err => {
+  console.log("Listening");
 });
