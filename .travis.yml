@@ -12,7 +12,7 @@ script:
 
 after_success:
   - docker build -t hhsu15/multi-client ./client
-  - docker build -t hhsu15/multi-ngnix  ./nginx/
+  - docker build -t hhsu15/multi-nginx  ./nginx/
   - docker build -t hhsu15/multi-server ./server
   - docker build -t hhsu15/multi-worker ./worker
   # log in to the docker CLI
