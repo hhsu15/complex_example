@@ -6,7 +6,7 @@ services:
     image: 'redis:latest'
   # for the sever image, we will specify build, volumes, and env variables
   nginx:
-    restart: always
+    # restart: always
     build:
       dockerfile: Dockerfile.dev
       context: ./nginx
