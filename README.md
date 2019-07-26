@@ -26,3 +26,5 @@ Input data in web broswer
   - if coming to '/' send to client upstream
   - if coming to '/api' send to server upstream
 - create a dockerfile for nginx to hookup the default.conf
+
+
