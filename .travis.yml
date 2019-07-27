@@ -14,7 +14,7 @@ before_install:
   - gcloud config set project multi-k8s-247418  # copy the ID of your project
   - gcloud config set compute/zone us-central1-a # use the compute zone, find it in the kubernetes engine
   - gcloud container clusters get-credentials multi-cluster # the name of your kubernetes cluster
-  - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_USERNAME" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t hhsu15/react-test -f ./client/Dockerfile.dev ./client # build the image
 script:
   - docker run -e CI=true hhsu15/react-test npm run test
