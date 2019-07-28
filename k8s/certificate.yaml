@@ -15,7 +15,7 @@ spec:
     config:
       - http01:
           ingressClass: nginx
-    	domains:
-    	  - okrmylife.com
-    	  - www.okrmylife.com
+        domains:
+          - okrmylife.com
+          - www.okrmylife.com
 
