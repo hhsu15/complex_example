@@ -6,16 +6,16 @@ spec:
   secretName: okrmylife-com
   issuerRef:
     name: letsencrypt-prod
-	kind: CluterIssuer
+    kind: CluterIssuer
   commonName: okrmylife.com
   dnsNames:
     - okrmylife.com
-	- www.okrmylife.com
+    - www.okrmylife.com
   acme:
     config:
-	  - http01:
-	      ingressClass: nginx
-		domains:
-		  - okrmylife.com
-		  - www.okrmylife.com
+      - http01:
+          ingressClass: nginx
+    	domains:
+    	  - okrmylife.com
+    	  - www.okrmylife.com
 
