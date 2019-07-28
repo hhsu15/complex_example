@@ -6,7 +6,7 @@ spec:
   secretName: okrmylife-com
   issuerRef:
     name: letsencrypt-prod
-    kind: CluterIssuer
+    kind: ClusterIssuer
   commonName: okrmylife.com
   dnsNames:
     - okrmylife.com
