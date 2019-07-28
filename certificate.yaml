@@ -1,0 +1,21 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: okrmylife-com-tls # my domain name for tls certificate
+spec:
+  secretName: okrmylife-com
+  issuerRef:
+    name: letsencrypt-pro
+	kind: CluterIssuer
+  commonName: okrmylife.com
+  dnsNames:
+    - okrmylife.com
+	- www.okrmylife.com
+  acme:
+    config:
+	  - http01:
+	      ingressClass: nginx
+		domains:
+		  - okrmylife.com
+		  - www.okrmylife.com
+
