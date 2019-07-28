@@ -5,7 +5,7 @@ metadata:
 spec:
   secretName: okrmylife-com
   issuerRef:
-    name: letsencrypt-pro
+    name: letsencrypt-prod
 	kind: CluterIssuer
   commonName: okrmylife.com
   dnsNames:
