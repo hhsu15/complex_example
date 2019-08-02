@@ -1,0 +1,20 @@
+apiVersion: skaffold/v1beta2
+kind: Config
+build:
+  local:
+    push: false
+  artifacts:
+    - image: hhsu15/multi-client
+      context: client
+      docker:
+        dockerfile: Dockerfile.dev
+      # Everytime skaffold sees anything change in a javascript file, apply that file and throw it into the container
+      sync:
+        '**/*.js': .
+        '**/*.css': .
+        '**/*.html': .
+deploy:
+  kubectl:
+    manifests:
+      - k8s/client-deployment.yaml
+
